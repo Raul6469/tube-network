@@ -4,4 +4,7 @@
 cmake_minimum_required (VERSION 3.8)
 
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (TubeNetwork "TubeNetwork.cpp" "TubeNetwork.h")
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/TubeNetwork/*.cpp)
+file(GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/TubeNetwork/*.h)
+
+add_executable (TubeNetwork ${SRC_FILES} ${HEADER_FILES})
