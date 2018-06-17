@@ -4,6 +4,38 @@
 
 using boost::asio::ip::tcp;
 
+std::string make_daytime_string()
+{
+	return "Hello";
+}
+
+void server()
+{
+	try
+	{
+		boost::asio::io_context io_context;
+
+		tcp::acceptor acceptor(io_context, tcp::endpoint(tcp::v4(), 13));
+
+		for (;;)
+		{
+			std::cout << "Listening..." << std::endl;
+
+			tcp::socket socket(io_context);
+			acceptor.accept(socket);
+
+			std::string message = make_daytime_string();
+
+			boost::system::error_code ignored_error;
+			boost::asio::write(socket, boost::asio::buffer(message), ignored_error);
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	try
@@ -15,6 +47,8 @@ int main(int argc, char* argv[])
 		}
 
 		boost::asio::io_context io_context;
+
+		std::thread runServer(server);
 
 		tcp::resolver resolver(io_context);
 		tcp::resolver::results_type endpoints =
