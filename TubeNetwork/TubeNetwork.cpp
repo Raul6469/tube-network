@@ -2,8 +2,8 @@
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
 
-#include "Server.h"
-#include "Client.h"
+#include "network/Server.h"
+#include "network/Client.h"
 
 int main(int argc, char* argv[])
 {
